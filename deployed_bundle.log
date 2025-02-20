@@ -1,0 +1,28 @@
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0* Host ec2-18-219-77-101.us-east-2.compute.amazonaws.com:80 was resolved.
+* IPv6: (none)
+* IPv4: 18.219.77.101
+*   Trying 18.219.77.101:80...
+* Connected to ec2-18-219-77-101.us-east-2.compute.amazonaws.com (18.219.77.101) port 80
+> GET /static/js/bundle.js HTTP/1.1
+> Host: ec2-18-219-77-101.us-east-2.compute.amazonaws.com
+> User-Agent: curl/8.7.1
+> Accept: */*
+> Cookie: login=eyJ1c2VybmFtZSI6ImF3ZGVvcmlvIn0.ZwslJg.AZMNUGkmDl8rFU61kKvLHLFfM2E
+> 
+* Request completely sent off
+< HTTP/1.1 200 OK
+< Server: nginx/1.24.0 (Ubuntu)
+< Date: Sun, 13 Oct 2024 01:42:20 GMT
+< Content-Type: text/javascript; charset=utf-8
+< Content-Length: 1242822
+< Connection: keep-alive
+< Content-Disposition: inline; filename=bundle.js
+< Last-Modified: Sat, 12 Oct 2024 21:12:52 GMT
+< Cache-Control: no-cache
+< ETag: "1728767572.559969-1242822-3954186017"
+< 
+{ [14132 bytes data]
+100 1213k  100 1213k    0     0  4573k      0 --:--:-- --:--:-- --:--:-- 4579k
+* Connection #0 to host ec2-18-219-77-101.us-east-2.compute.amazonaws.com left intact

@@ -1,0 +1,101 @@
+@insta485.app.route('/api/v1/posts/')
+@require_login
+def get_posts_10(username):
+    """Return the 10 newest posts."""
+    connection = insta485.model.get_db()
+
+    # Get query parameters
+    postid_lte = flask.request.args.get("postid_lte", type=int)
+    size = flask.request.args.get("size", default=10, type=int)
+    page = flask.request.args.get("page", default=0, type=int)
+
+    # Validate size and page
+    if size <= 0 or page < 0:
+        return flask.jsonify({"error": "Invalid size or page parameter"}), 400
+
+    # Determine the offset for pagination
+    offset = page * size
+
+    # Fetch postid_lte if not provided
+    if postid_lte is None:
+        postid_lte = get_latest_postid(connection, username)
+
+    # Fetch posts
+    posts = fetch_posts(connection, username, postid_lte, size, offset)
+
+    # Prepare the results and next URL
+    results = prepare_results(posts)
+    next_url = calculate_next_url(posts, size, postid_lte, page)
+
+    # Get the current URL
+    full_path = get_full_path()
+
+    # Create the response
+    response = {
+        "next": next_url,
+        "results": results,
+        "url": full_path,
+    }
+
+    return flask.jsonify(**response)
+
+
+def get_latest_postid(connection, username):
+    """Fetch the latest post ID for the given username."""
+    query = """
+        SELECT postid
+        FROM posts
+        WHERE (owner = ? OR owner IN (
+            SELECT username2 FROM following WHERE username1 = ?
+        ))
+        ORDER BY postid DESC LIMIT 1
+    """
+    params = [username, username]
+    cur = connection.execute(query, params)
+    post = cur.fetchone()
+    return post['postid'] if post else None
+
+
+def fetch_posts(connection, username, postid_lte, size, offset):
+    """Fetch posts with pagination and filtering."""
+    query = """
+        SELECT postid, owner
+        FROM posts
+        WHERE (owner = ? OR owner IN (
+            SELECT username2 FROM following WHERE username1 = ?
+        ))
+        AND postid <= ?
+        ORDER BY postid DESC LIMIT ? OFFSET ?
+    """
+    params = [username, username, postid_lte, size, offset]
+    cur = connection.execute(query, params)
+    return cur.fetchall()
+
+
+def prepare_results(posts):
+    """Prepare the results for the response."""
+    return [
+        {"postid": post["postid"], "url": f"/api/v1/posts/{post['postid']}/"}
+        for post in posts
+    ]
+
+
+def calculate_next_url(posts, size, postid_lte, page):
+    """Calculate the next URL for pagination."""
+    if len(posts) == size:
+        next_url = (
+            f"/api/v1/posts/?size={size}&page={page+1}"
+            f"&postid_lte={postid_lte}"
+        )
+        return next_url
+    return ""
+
+
+def get_full_path():
+    """Get the full request path."""
+    parsed_url = urlparse(flask.request.url)
+    full_path = parsed_url.path
+    if parsed_url.query:
+        full_path += "?" + parsed_url.query
+    return full_path
+
