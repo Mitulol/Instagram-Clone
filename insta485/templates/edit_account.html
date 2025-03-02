@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>insta485</title>
+        <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <div>
+            <a href="{{ url_for('show_index') }}"> <img src="{{ url_for('static', filename='images/ig-logo.jpg') }}" alt="Logo here" height="50" width="50" style="vertical-align: middle;"></a>
+            <h1 style="display: inline;">| Insta485</h1>
+            <h3 style="display: inline; float: right; vertical-align: top;"> <a href = "{{ url_for('show_explore') }}"> explore </a> | <a href="{{ url_for('show_user', user_url_slug=logname) }}"> {{logname}} </a></h3>
+            <hr style="width: 100%;">
+        </div>  
+        <br> <br>
+        <!-- DO NOT CHANGE THIS -->
+        <p style = "padding-left: 5%;">
+        <img src="{{ url_for('show_image', filename=user_img) }}" alt="user pfp" width="30" height="30" style="vertical-align: middle;"> <b> {{username}} </b>
+        </p>
+         <!-- DO NOT CHANGE THIS (aside from where we say 'FIXME') -->
+        <form action="{{ url_for('update_account') }}?target={{ url_for('show_edit_account') }}" method="post" enctype="multipart/form-data">
+            <p style="padding-left: 5%;"> Photo <input style="padding-left: 1%;" type="file" name="file" accept="image/*"/></p>
+            <p style="padding-left: 5%;"> Name <input style="padding-left: 1%;" type="text" name="fullname" value="{{ fullname }}" required/></p>
+            <p style="padding-left: 5%;"> Email <input style="padding-left: 1%;" type="text" name="email" value="{{ email }}" required/></p>
+            <p style="padding-left: 9%;"><input type="submit" name="update" value="submit"/></p>
+            <p style="padding-left: 5%;"><input type="hidden" name="operation" value="edit_account"/></p>
+        </form>
+        <p style="padding-left: 5%;"><a href="{{ url_for('show_password_account') }}"><b>Change password</b></a></p>
+        <p style="padding-left: 5%;"><a href="{{ url_for('show_delete_account') }}"><b>Delete account</b></a></p>
+
+      </body>
+    </html>
+     

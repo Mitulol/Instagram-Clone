@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>insta485</title>
+        <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <div>
+            <a href="{{ url_for('show_index') }}"> <img src="{{ url_for('static', filename='images/ig-logo.jpg') }}" alt="Logo here" height="50" width="50" style="vertical-align: middle;"></a>
+            <h1 style="display: inline;">| Insta485</h1>
+            <h3 style="display: inline; float: right; vertical-align: top;"> <a href = "{{ url_for('show_explore') }}"> explore </a> | <a href="{{ url_for('show_user', user_url_slug=logname) }}"> {{logname}} </a></h3>
+            <hr style="width: 100%;">
+        </div>  
+
+        <br> <br> <br>
+
+        <div style="padding-left: 10%;">
+            <p style="font-size:xx-large; font-weight: 500;"> {{username}} </p>
+            
+            {% if logname == username %}
+            <!-- DO NOT CHANGE THIS (aside from where we say 'FIXME') -->
+            <a href="{{ url_for('show_edit_account') }}"> <p><b>Edit profile</b></p> </a>
+            <form action="{{ url_for('update_logout') }}" method="post" enctype="multipart/form-data">
+                <input type="submit" name="logout" value="Logout"/>
+            </form>
+            {% else %}
+                {% if logname_follows_username %}
+                    <p> following </p>
+                    <!-- DO NOT CHANGE THIS (aside from where we say 'FIXME') -->
+                    <form action="{{ url_for('update_following') }}?target={{ url_for('show_user', user_url_slug=username) }}" method="post" enctype="multipart/form-data">
+                        <input type="submit" name="unfollow" value="unfollow"/>
+                        <input type="hidden" name="username" value="{{ username }}"/>
+                        <input type="hidden" name="operation" value="unfollow"/>
+                    </form>
+                {% else %}
+                    <p> not following </p>
+                    <!-- DO NOT CHANGE THIS (aside from where we say 'FIXME') -->
+                    <form action="{{ url_for('update_following') }}?target={{ url_for('show_user', user_url_slug=username)}}" method="post" enctype="multipart/form-data">
+                        <input type="submit" name="follow" value="follow"/>
+                        <input type="hidden" name="username" value="{{ username }}"/>
+                        <input type="hidden" name="operation" value="follow"/>
+                    </form>
+                {% endif %}
+            {% endif %}
+            <p>
+            {% if total_posts == 1 %}
+                1 post 
+            {% else %}
+                {{total_posts}} posts
+            {% endif %}
+
+            {% if followers == 1 %}
+                <a href = "{{ url_for('show_user_followers', user_url_slug = username) }}"> 1 follower</a>
+            {% else %}
+                <a href = "{{ url_for('show_user_followers', user_url_slug = username) }}"> {{followers}} followers</a>
+            {% endif %}
+            <a href="{{ url_for('show_user_following', user_url_slug = username) }}"> {{following}} following </a></p>
+
+            <p> {{fullname}} </p>
+            {% if logname == username %}
+            <!-- DO NOT CHANGE THIS (aside from where we say 'FIXME') -->
+            <form action="{{ url_for('update_posts') }}?target={{ url_for('show_user', user_url_slug = logname) }}" method="post" enctype="multipart/form-data">
+                <input type="file" name="file" accept="image/*" required/>
+                <input type="submit" name="create_post" value="upload new post"/>
+                <input type="hidden" name="operation" value="create"/>
+            </form>
+            {% endif %}            
+            <p>
+            {% for post in posts %}
+                <a href="{{ url_for('show_post', postid_url_slug = post.postid) }}"><img src="{{ url_for('show_image', filename = post.img_url)  }}" alt="post image {{postid}}" width="400" height="300"></a> 
+                &emsp;
+            {% endfor %}
+            </p>
+
+            {% if total_posts == 0 %}
+                <p> No posts yet.</p>
+            {% endif %}
+        </div>
+    </body>
+</html>

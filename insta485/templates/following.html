@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>insta485</title>
+        <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <div>
+            <a href="{{ url_for('show_index') }}"> <img src="{{ url_for('static', filename='images/ig-logo.jpg') }}" alt="Logo here" height="50" width="50" style="vertical-align: middle;"></a>
+            <h1 style="display: inline;">| Insta485</h1>
+            <h3 style="display: inline; float: right; vertical-align: top;"> <a href = "{{ url_for('show_explore') }}"> explore </a> | <a href="{{ url_for('show_user', user_url_slug=logname) }}"> {{logname}} </a></h3>
+            <hr style="width: 100%;">
+        </div>
+        <br>
+
+        <h2> Following </h2>
+        
+        {% for follow in following %}
+            <div class = "post">
+                <img src="{{  url_for('show_image', filename= follow.user_img_url) }}" alt="following pfp" width="30" height="30" style="vertical-align: middle;">
+                    <a href = "{{ url_for('show_user', user_url_slug=follow.username) }}"> {{follow.username}} </a>
+                    {% if logname == follow.username %}
+                        
+                    {% else %}
+                        {% if follow.logname_follows_username %}
+                            <span class = "graylink" style="float: right;"> following </span>
+                            <!-- DO NOT CHANGE THIS (aside from where we say 'FIXME') -->
+                            <form action="{{ url_for('update_following') }}?target={{ url_for('show_user_following', user_url_slug=username) }}" method="post" enctype="multipart/form-data">
+                                <input type="submit" name="unfollow" value="unfollow"/>
+                                <input type="hidden" name="username" value="{{ follow.username }}"/>
+                                <input type="hidden" name="operation" value="unfollow"/>
+                            </form>
+                        {% else %}
+                            <span class = "graylink" style="float: right;"> not following </span>
+                            <!-- DO NOT CHANGE THIS (aside from where we say 'FIXME') -->
+                            <form action="{{ url_for('update_following') }}?target={{ url_for('show_user_following', user_url_slug=username) }}" method="post" enctype="multipart/form-data">
+                                <input type="submit" name="follow" value="follow"/>
+                                <input type="hidden" name="username" value="{{ follow.username }}"/>
+                                <input type="hidden" name="operation" value="follow"/>
+                            </form>
+                        {% endif %}
+                    {% endif %}
+                
+            </div>
+            <br> <br>
+        {% endfor %}
+    </body>
+</html>

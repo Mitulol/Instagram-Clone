@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>insta485</title>
+        <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <div>
+            <a href="{{ url_for('show_index') }}"> <img src="{{ url_for('static', filename='images/ig-logo.jpg') }}" alt="Logo here" height="50" width="50" style="vertical-align: middle;"></a>
+            <h1 style="display: inline;">| Insta485</h1>
+
+            <h3 style="display: inline; float: right; vertical-align: top;"> <a href = "{{ url_for('show_login_account')  }}"> login </a> </h3>
+            <hr style="width: 100%;">  
+        </div>  
+        <br> <br>
+        <!-- DO NOT CHANGE THIS (aside from styling) -->
+        <form style="margin-left: 5%;" action="{{ url_for('update_account') }}?target={{ url_for('show_index') }}" method="post" enctype="multipart/form-data">
+            <p><input type="text" name="username" placeholder="username" required/></p>
+            <p><input type="password" name="password" placeholder="password" required/></p>
+            <p><input type="submit" value="login"/></p>
+            <p><input type="hidden" name="operation" value="login"/></p>
+        </form>
+        <p style="margin-left: 5%;"> Dont have an account? <a href="{{ url_for('show_create_account') }}"><b>Sign up</b></a></p>
+    </body>
+    </html>
+     

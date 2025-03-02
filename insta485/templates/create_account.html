@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>insta485</title>
+        <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <div>
+            <a href="{{ url_for('show_index') }}"> <img src="{{ url_for('static', filename='images/ig-logo.jpg') }}" alt="Logo here" height="50" width="50" style="vertical-align: middle;"></a>
+            <h1 style="display: inline;">| Insta485</h1>
+
+            <h3 style="display: inline; float: right; vertical-align: top;"> <a href = "{{ url_for('show_login_account')  }}"> login </a> </h3>
+            <hr style="width: 100%;">  
+        </div>  
+        <br> <br>
+        <!-- DO NOT CHANGE THIS (aside from styling) -->
+        <form action="{{ url_for('update_account') }}?target={{ url_for('show_index') }}" method="post" enctype="multipart/form-data">
+            <p style="font-size:medium; font-weight: 510; margin-left: 5%;"> Photo <input style="margin-left: 6%;" type="file" name="file" required/></p>
+            <p style="font-size:medium; font-weight: 510; margin-left: 5%;"> Name <input style="margin-left: 6%;" type="text" name="fullname" required/></p>
+            <p style="font-size:medium; font-weight: 510; margin-left: 5%;"> Username <input style=" margin-left: 3%;" type="text" name="username" required/></p>
+            <p style="font-size:medium; font-weight: 510; margin-left: 5%;"> Email <input style=" margin-left: 6%;" type="text" name="email" required/></p>
+            <p style="font-size:medium; font-weight: 510; margin-left: 5%;"> Password <input style=" margin-left: 3%;" type="password" name="password" required/></p>
+            <p><input style=" margin-left: 14%;" type="submit" name="signup" value="sign up"/></p>
+            <p><input type="hidden" name="operation" value="create"/></p>
+        </form>
+        <p style="font-size:medium; font-weight: 510; margin-left: 5%;">Have an account? <a href="{{ url_for('show_login_account') }}"><b>Log in</b></a></p>
+    </body>
+    </html>
+     

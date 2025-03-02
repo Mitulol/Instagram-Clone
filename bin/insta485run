@@ -1,0 +1,17 @@
+#!/bin/bash
+# insta485run
+
+# Stop on errors
+set -Eeuo pipefail
+
+# Check if the database file exists
+if [ ! -f "var/insta485.sqlite3" ]; then
+  echo "Error: can't find database var/insta485.sqlite3"
+  echo "Try: ./bin/insta485db create"
+  exit 1
+fi
+
+npx webpack 
+
+# Run the Flask development server
+flask --app insta485 --debug run --host 0.0.0.0 --port 8000
