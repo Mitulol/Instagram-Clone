@@ -182,8 +182,8 @@ This project is licensed under the **Creative Commons Attribution-NonCommercial 
 
 ## 👨‍💻 Author
 - **Mitul Goel**  
-- LinkedIn: [your-linkedin](https://www.linkedin.com/in/mitul-goel/)  
-- GitHub: [your-github](https://github.com/Mitulol)  
+- LinkedIn: [Mitul Goel](https://www.linkedin.com/in/mitul-goel/)  
+- GitHub: [Mitulol](https://github.com/Mitulol)  
 
 ---
 
