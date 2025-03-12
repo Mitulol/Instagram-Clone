@@ -1,6 +1,6 @@
 # Insta485 - Full-Stack Instagram Clone
 
-A fully functional Instagram-like web application built as part of the EECS 485 course at the University of Michigan. This project was implemented in three phases: static site generation, server-side dynamic pages, and client-side dynamic pages with a REST API.
+A fully functional Instagram-like web application. This project was implemented in three phases: static site generation, server-side dynamic pages, and client-side dynamic pages with a REST API.
 
 ---
 
@@ -182,8 +182,8 @@ This project is licensed under the **Creative Commons Attribution-NonCommercial 
 
 ## 👨‍💻 Author
 - **Mitul Goel**  
-- LinkedIn: [your-linkedin](https://linkedin.com/in/yourprofile)  
-- GitHub: [your-github](https://github.com/yourusername)  
+- LinkedIn: [your-linkedin](https://www.linkedin.com/in/mitul-goel/)  
+- GitHub: [your-github](https://github.com/Mitulol)  
 
 ---
 
